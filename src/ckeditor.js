@@ -27,11 +27,19 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import BlockToolbar from '@ckeditor/ckeditor5-ui/src/toolbar/block/blocktoolbar';
+import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui';
+import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
+import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
 // Plugins to include in the build.
 ClassicEditor.builtinPlugins = [
+	Highlight,
+	BlockToolbar,
+	HeadingButtonsUI,
+	ParagraphButtonUI,
 	Essentials,
 	UploadAdapter,
 	Autoformat,
@@ -61,33 +69,70 @@ ClassicEditor.defaultConfig = {
 		items: [
 			'heading',
 			'|',
+			'highlight',
 			'bold',
 			'italic',
 			'link',
 			'bulletedList',
 			'numberedList',
 			'imageUpload',
-			'blockQuote',
 			'insertTable',
 			'mediaEmbed',
+			'blockQuote',
+
 			'undo',
 			'redo'
 		]
 	},
-	image: {
-		toolbar: [
-			'imageStyle:full',
-			'imageStyle:side',
-			'|',
-			'imageTextAlternative'
+	blockToolbar: [
+		'paragraph',
+		'heading1',
+		'heading2',
+		'heading3',
+		'|',
+		'bulletedList',
+		'numberedList',
+		'|',
+		'blockQuote',
+		'imageUpload'
+	],
+	highlight: {
+		options: [
+			{
+				model: 'greenMarker',
+				class: 'marker-green',
+				title: 'Green marker',
+				color: 'var(--ck-highlight-marker-green)',
+				type: 'marker'
+			},
+			{
+				model: 'redMarker',
+				class: 'marker-red',
+				title: 'Red marker',
+				color: 'var(--ck-highlight-marker-red)',
+				type: 'marker'
+			},
+			{
+				model: 'greenPen',
+				class: 'pen-green',
+				title: 'Green pen',
+				color: 'var(--ck-highlight-pen-green)',
+				type: 'pen'
+			},
+			{
+				model: 'redPen',
+				class: 'pen-red',
+				title: 'Red pen',
+				color: 'var(--ck-highlight-pen-red)',
+				type: 'pen'
+			}
 		]
 	},
+	image: {
+		toolbar: [ 'imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative' ]
+	},
 	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
+		contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
